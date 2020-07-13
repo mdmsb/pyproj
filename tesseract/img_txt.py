@@ -110,7 +110,7 @@ def list_files():
 
 def conv_dir_img():
     print("Clearing 'convtxt.txt' file. . .")
-    f = open("convtxt.txt","w")
+    f = open("attachments/convtxt.txt","w")
     f.write("")
     f.close()
     print("Cleared")
@@ -120,7 +120,7 @@ def conv_dir_img():
         print(f)
         txt = convert(f)
         txt = clean_txt(txt)
-        f = open("convtxt.txt","a")
+        f = open("attachments/convtxt.txt","a")
         f.write(str(txt+"\n\n"))
         f.close()
             

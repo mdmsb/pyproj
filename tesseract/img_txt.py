@@ -53,6 +53,7 @@ def clean_txt(txt):
     txt = txt.replace("¥","Y")
     txt = txt.replace("€","E")
     txt = txt.replace("US4","USA")
+    txt = txt.replace("USA4","USA")
     txt = txt.replace(",","|")
     txt = txt.replace("| ","|")
     txt = txt.replace(" |","|")
@@ -99,9 +100,9 @@ def list_files():
     print("\nFiles found = " + str(imgfile) + "\n")
     match = re.findall(r'\d\d\d', str(imgfile))
     match.sort()
-    
-    l = re.compile("\d\d\d").split(files[0])
-
+    print(match)
+    l = re.compile("\d\d\d").split(imgfile[0])
+    print(l)
     myfiles = []
     for m in match:
         myfiles.append(str(file + l[0] + m + l[1]))

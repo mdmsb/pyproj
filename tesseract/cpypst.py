@@ -53,7 +53,7 @@ def click_new():
     new_loc = None
     n = 0
     while new_loc == None:
-        new_loc = pyautogui.locateOnScreen('new.png')
+        new_loc = pyautogui.locateOnScreen('attachments/new.png')
         time.sleep(0.4)
         n += 1
         if n == 20:
@@ -69,7 +69,7 @@ def click_id():
     id_loc = None
     n = 0
     while id_loc == None:
-        id_loc = pyautogui.locateOnScreen('id.png')
+        id_loc = pyautogui.locateOnScreen('attachments/id.png')
         time.sleep(0.4)
         n += 1
         if n == 20:

@@ -6,15 +6,17 @@ import sys
 import openpyxl as xl
 from tkinter import filedialog
 
-from win32api import GetKeyState
-from win32con import VK_CAPITAL, VK_NUMLOCK
 
-if GetKeyState(VK_CAPITAL) == 1:
-    pyautogui.press('capslock')
-    print("Capslock turned off")
-if GetKeyState(VK_NUMLOCK) == 1:
-    pyautogui.press('numlock')
-    print("Numlock turned off")
+def check_locks():
+    from win32api import GetKeyState
+    from win32con import VK_CAPITAL, VK_NUMLOCK
+
+    if GetKeyState(VK_CAPITAL) == 1:
+        pyautogui.press('capslock')
+        print("Capslock turned off")
+    if GetKeyState(VK_NUMLOCK) == 1:
+        pyautogui.press('numlock')
+        print("Numlock turned off")
 
 
 entries = []
@@ -34,15 +36,17 @@ def read_xl(filename):
         entries.append(dt)
     print(len(entries))
 
-in_val = input("Read Excel file??? [Y/N]")
-if in_val == "Y" or in_val == "y":
-    tk.Tk().withdraw()
-    filename = filedialog.askopenfilename()
-##    filename = "F:/pyproj/tesseract/Book1.xlsm"
-    if filename == "":
-        sys.exit()
-    print("Reading excel")
-    read_xl(filename)
+in_val = ""
+def file_path():
+    in_val = input("Read Excel file??? [Y/N]")
+    if in_val == "Y" or in_val == "y":
+        tk.Tk().withdraw()
+        filename = filedialog.askopenfilename()
+    ##    filename = "C:/Users/Musab/Downloads/Upload in Application - Khb_2.xlsx"
+        if filename == "":
+            sys.exit()
+        print("Reading excel")
+        read_xl(filename)
 
 
 
@@ -84,13 +88,15 @@ def click_id():
 
 
 
-root = tk.Tk()
+
 def paste_key():
     time.sleep(0.3)
     click_new()
     time.sleep(0.3)
     click_id()
     copied_text = pyperclip.paste()
+    copied_text = copied_text.replace("\r","")
+    copied_text = copied_text.replace("\n","")
     copied_text = copied_text.split("\t")
     ##print(copied_text[17],copied_text[18])
     m = copied_text[17]
@@ -167,25 +173,38 @@ def i():
     next_entry()
 
 
+def tk_run():
+    global root, e
+    root = tk.Tk()
 
-B1 = tk.Button(root, text ="P. Paste", width=30, command = p)
-B1.pack()
-B2 = tk.Button(root, text ="O. XL Copy + Paste", width=30, command = o)
-B2.pack()
-root.bind('p', pp)
-root.bind('P', pp)
-root.bind('o', oo)
-root.bind('O', oo)
+    B1 = tk.Button(root, text ="P. Paste", width=30, command = p)
+    B1.pack()
+    B2 = tk.Button(root, text ="O. XL Copy + Paste", width=30, command = o)
+    B2.pack()
+    root.bind('p', pp)
+    root.bind('P', pp)
+    root.bind('o', oo)
+    root.bind('O', oo)
 
-if in_val == "Y" or in_val == "y":
-    e = tk.Entry(root, width=25)
-    e.pack()
-    e.delete(0, tk.END)
-    ent = entries[0].split("\t")[1]
-    e.insert(0, ent)
-    B3 = tk.Button(root, text ="I. Variable Paste", width=30, command = i)
-    B3.pack()
-    root.bind('i', ii)
-    root.bind('I', ii)
+    if in_val == "Y" or in_val == "y":
+        e = tk.Entry(root, width=25)
+        e.pack()
+        e.delete(0, tk.END)
+        ent = entries[0].split("\t")[1]
+        e.insert(0, ent)
+        B3 = tk.Button(root, text ="I. Variable Paste", width=30, command = i)
+        B3.pack()
+        root.bind('i', ii)
+        root.bind('I', ii)
 
-root.mainloop()
+    root.mainloop()
+
+check_locks()
+##file_path()
+tk_run()
+
+
+
+
+
+
